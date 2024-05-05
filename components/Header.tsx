@@ -43,8 +43,6 @@ const Header = () => {
                         <SignInButton />
                     </Button>
                 </SignedOut>
-
-
             </div>
         </div>
     )
