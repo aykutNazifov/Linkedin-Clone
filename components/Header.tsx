@@ -1,6 +1,8 @@
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 import { Briefcase, HomeIcon, MessagesSquare, SearchIcon, UserIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { Button } from "./ui/button"
 
 const Header = () => {
     return (
@@ -31,6 +33,16 @@ const Header = () => {
                 </Link>
 
                 {/* User Button */}
+
+                <SignedIn>
+                    <UserButton />
+                </SignedIn>
+
+                <SignedOut>
+                    <Button asChild variant="secondary">
+                        <SignInButton />
+                    </Button>
+                </SignedOut>
 
 
             </div>
