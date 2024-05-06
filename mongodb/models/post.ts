@@ -19,7 +19,7 @@ interface IPostMethods {
     likePost(userId: string): Promise<void>;
     unlikePost(userId: string): Promise<void>;
     commentOnPost(comment: ICommentBase): Promise<void>;
-    getAllComents(): Promise<IComment[]>;
+    getAllComments(): Promise<IComment[]>;
     removePost(): Promise<void>;
 }
 
@@ -30,7 +30,7 @@ interface IPostStatics {
 export interface IPostDocument extends IPost, IPostMethods { }
 interface IPostModel extends IPostStatics, Model<IPostDocument> { }
 
-const postSchema = new Schema({
+const postSchema = new Schema<IPostDocument>({
     user: {
         userId: { type: String, required: true },
         userImage: { type: String, required: true },
@@ -77,7 +77,7 @@ postSchema.methods.commentOnPost = async function (commentToAdd: ICommentBase) {
     }
 }
 
-postSchema.methods.getAllComents = async function () {
+postSchema.methods.getAllComments = async function () {
     try {
         await this.populate({
             path: "comments",
@@ -90,7 +90,7 @@ postSchema.methods.getAllComents = async function () {
 }
 
 
-postSchema.statics.getAllPosts = async function (userId: string) {
+postSchema.statics.getAllPosts = async function () {
     try {
         const posts = await this.find().sort({ createdAt: -1 }).populate({
             path: "comments",
@@ -110,7 +110,7 @@ postSchema.statics.getAllPosts = async function (userId: string) {
     }
 }
 
-export const Post = models.Post || mongoose.model<IPostDocument, IPostModel>("Post", postSchema)
+export const Post = (models.Post as IPostModel) || mongoose.model<IPostDocument, IPostModel>("Post", postSchema)
 
 
 
