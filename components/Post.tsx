@@ -85,3 +85,4 @@ const Post: React.FC<IPostProps> = ({ post }) => {
 }
 
 export default Post
+
