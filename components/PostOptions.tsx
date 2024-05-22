@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { Button } from './ui/button'
 import { MessageCircle, Repeat2, Send, ThumbsUpIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import CommentForm from './CommentForm'
+import CommentFeed from './CommentFeed'
 
 interface IPostOptionsProps {
     post: IPostDocument
@@ -129,7 +131,8 @@ const PostOptions: React.FC<IPostOptionsProps> = ({ post }) => {
 
             {isCommentsOpen && (
                 <div className="p-4">
-                    comment open
+                    {user?.id && <CommentForm postId={post._id} />}
+                    <CommentFeed post={post} />
                 </div>
             )}
         </div>
